@@ -5,7 +5,7 @@ HOW TO USE:
 1. Clone repo
 2. make /certs folder with .key and .pem file (1password)  (you need these or you must use Visma VPN as explained here:  https://docs.google.com/spreadsheets/d/1zLUlfWny5mAoWaljOsb653NuQZdk40F3aEeRjTU7XGc/edit?gid=145628486#gid=145628486
 3. build: ```docker build -t jira-mcp .```
-4. make .env file in whatever project you need this for. Change JIRA_PROJECTS_FILTER to your project for some safety
+4. make .env file in whatever project you need this for. Change JIRA_PROJECTS_FILTER to your project for some safety. Get your own PAT from Visma JIRA (see your profile)
 ```
 JIRA_SSL_VERIFY=false
 JIRA_PERSONAL_TOKEN={PAT}
