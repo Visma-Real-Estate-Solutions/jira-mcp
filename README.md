@@ -21,6 +21,8 @@ JIRA_PROJECTS_FILTER=BRWA
 ```
 6. Go disable all the jira-mcp tools your uncomfortable with using. 
 
+________ ORIGINAL README FROM FORKED REPO BELOW ________
+
 # MCP Atlassian
 
 ![PyPI Version](https://img.shields.io/pypi/v/mcp-atlassian)
