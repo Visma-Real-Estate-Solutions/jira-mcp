@@ -42,6 +42,7 @@ WORKDIR /app
 USER app
 
 COPY --from=uv --chown=app:app /app/.venv /app/.venv
+COPY --from=uv --chown=app:app /app/certs /app/certs
 
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"

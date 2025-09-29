@@ -108,6 +108,8 @@ class JiraClient:
             url=self.config.url,
             session=self.jira._session,
             ssl_verify=self.config.ssl_verify,
+            client_cert=self.config.ssl_client_cert,
+            client_key=self.config.ssl_client_key,
         )
 
         # Proxy configuration

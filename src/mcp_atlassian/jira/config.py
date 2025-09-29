@@ -30,6 +30,8 @@ class JiraConfig:
     personal_token: str | None = None  # Personal access token (Server/DC)
     oauth_config: OAuthConfig | BYOAccessTokenOAuthConfig | None = None
     ssl_verify: bool = True  # Whether to verify SSL certificates
+    ssl_client_cert: str | None = None  # Path to client certificate file (.pem)
+    ssl_client_key: str | None = None  # Path to client private key file (.key)
     projects_filter: str | None = None  # List of project keys to filter searches
     http_proxy: str | None = None  # HTTP proxy URL
     https_proxy: str | None = None  # HTTPS proxy URL
@@ -127,6 +129,10 @@ class JiraConfig:
         # Custom headers - service-specific only
         custom_headers = get_custom_headers("JIRA_CUSTOM_HEADERS")
 
+        # Client certificate configuration
+        ssl_client_cert = os.getenv("JIRA_SSL_CLIENT_CERT", "certs/TOOLS-33706.pem")
+        ssl_client_key = os.getenv("JIRA_SSL_CLIENT_KEY", "certs/TOOLS-33706.key")
+
         return cls(
             url=url,
             auth_type=auth_type,
@@ -135,6 +141,8 @@ class JiraConfig:
             personal_token=personal_token,
             oauth_config=oauth_config,
             ssl_verify=ssl_verify,
+            ssl_client_cert=ssl_client_cert,
+            ssl_client_key=ssl_client_key,
             projects_filter=projects_filter,
             http_proxy=http_proxy,
             https_proxy=https_proxy,

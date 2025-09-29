@@ -70,20 +70,29 @@ class SSLIgnoreAdapter(HTTPAdapter):
 
 
 def configure_ssl_verification(
-    service_name: str, url: str, session: Session, ssl_verify: bool
+    service_name: str, url: str, session: Session, ssl_verify: bool,
+    client_cert: str | None = None, client_key: str | None = None
 ) -> None:
-    """Configure SSL verification for a specific service.
-
-    If SSL verification is disabled, this function will configure the session
-    to use a custom SSL adapter that bypasses certificate validation for the
-    service's domain.
+    """Configure SSL verification and client certificates for a specific service.
 
     Args:
         service_name: Name of the service for logging (e.g., "Confluence", "Jira")
         url: The base URL of the service
         session: The requests session to configure
         ssl_verify: Whether SSL verification should be enabled
+        client_cert: Path to client certificate file (.pem)
+        client_key: Path to client private key file (.key)
     """
+    # Set client certificates if provided (requests handles this natively)
+    if client_cert and client_key:
+        import os
+        if os.path.exists(client_cert) and os.path.exists(client_key):
+            logger.info(f"{service_name} using client certificates: {client_cert}")
+            session.cert = (client_cert, client_key)
+        else:
+            logger.warning(f"{service_name} certificate files not found: {client_cert}, {client_key}")
+    
+    # Handle SSL verification disable (original logic)
     if not ssl_verify:
         logger.warning(
             f"{service_name} SSL verification disabled. This is insecure and should only be used in testing environments."
